@@ -17,3 +17,49 @@ const beijindaxing = {
 document
   .querySelector('.buy')
   .addEventListener('click', beijindaxing.buPlane.bind(beijindaxing));
+
+// challenge 1
+const poll = {
+  answer: [0, 0, 0, 0],
+  // answer: new String('0,0,0,0'),
+  // answer: new Array(4).fill(0),
+  registerNewAnswer: function () {
+    const choice = Number(
+      prompt(
+        'What is your favourite programming language? \n0:JavaScript\n1:Python\n2:Rust\n3:C++\n(Write option number)'
+      )
+    );
+    if (typeof choice === 'number' && choice >= 0 && choice <= 3)
+      this.answer[choice]++;
+    else alert('wrong input !');
+    // console.log(typeof this.answer);
+    this.displayResult();
+    this.displayResult('string');
+  },
+  displayResult(type = 'array') {
+    if (type === 'array') console.log(this.answer);
+    else console.log(`Poll results are ${this.answer.join(',')}`);
+  },
+};
+
+document
+  .querySelector('.poll')
+  .addEventListener('click', poll.registerNewAnswer.bind(poll));
+
+poll.displayResult.call({ answer: [5, 2, 3] }, 'string');
+poll.displayResult.call({ answer: [5, 2, 3] });
+poll.displayResult.call({ answer: [1, 5, 3, 9, 6, 1] }, 'string');
+
+// IIFE
+(function () {
+  console.log('这个方程只执行一次！');
+})();
+(() => console.log('run once only'))();
+
+// challenge 2
+(function () {
+  const header = document.querySelector('h1');
+  document.querySelector('body').addEventListener('click', () => {
+    header.style.color = 'blue';
+  });
+})();
