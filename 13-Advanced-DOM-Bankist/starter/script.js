@@ -144,6 +144,55 @@ const headerObserver = new IntersectionObserver(stickyNav, {
 
 headerObserver.observe(header);
 
+// Reveal sections
+const allSections = document.querySelectorAll('.section');
+const revealSection = function (entries, observe) {
+  const [entry] = entries;
+
+  if (!entry.isIntersecting) return;
+  entry.target.classList.remove('section--hidden');
+  observe.unobserve(entry.target);
+};
+
+const sectionObserve = new IntersectionObserver(revealSection, {
+  root: null,
+  threshold: 0.15,
+});
+
+allSections.forEach(function (section) {
+  section.classList.add('section--hidden');
+  sectionObserve.observe(section);
+});
+
+// lazy loading img
+const images = document.querySelectorAll('img[data-src]');
+const laztImages = function (entries, observer) {
+  const [entry] = entries;
+  if (!entry.isIntersecting) return;
+
+  entry.target.src = entry.target.dataset.src;
+  entry.target.addEventListener('load', function () {
+    // entry.target.classList.remove('lazy-img');
+    this.classList.remove('lazy-img');
+  });
+
+  // 回调函数的作用域
+  // const demo = function () {
+  //   entry.target.classList.remove('lazy-img');
+  // };
+  // entry.target.addEventListener('load', demo);
+
+  observer.unobserve(entry.target);
+};
+
+const imgObserver = new IntersectionObserver(laztImages, {
+  root: null,
+  threshold: 0,
+  rootMargin: '200px',
+});
+
+images.forEach(img => imgObserver.observe(img));
+
 ///////////////////////////////////////////
 // 事件捕获，事件冒泡
 // const randomInt = (max, min) =>
