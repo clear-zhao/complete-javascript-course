@@ -168,15 +168,18 @@ allSections.forEach(function (section) {
 const images = document.querySelectorAll('img[data-src]');
 const laztImages = function (entries, observer) {
   const [entry] = entries;
+  // const a = 1;
   if (!entry.isIntersecting) return;
 
   entry.target.src = entry.target.dataset.src;
   entry.target.addEventListener('load', function () {
     // entry.target.classList.remove('lazy-img');
     this.classList.remove('lazy-img');
+    // 回调函数的作用域
+    // console.log(a);
   });
 
-  // 回调函数的作用域
+  // 回调函数
   // const demo = function () {
   //   entry.target.classList.remove('lazy-img');
   // };
