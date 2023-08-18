@@ -160,7 +160,7 @@ const sectionObserve = new IntersectionObserver(revealSection, {
 });
 
 allSections.forEach(function (section) {
-  section.classList.add('section--hidden');
+  // section.classList.add('section--hidden');
   sectionObserve.observe(section);
 });
 
@@ -196,7 +196,36 @@ const imgObserver = new IntersectionObserver(laztImages, {
 
 images.forEach(img => imgObserver.observe(img));
 
-///////////////////////////////////////////
+// Slider
+// 该功能就是更改translateX的值
+const slides = document.querySelectorAll('.slide');
+const btnLeft = document.querySelector('.slider__btn--left');
+const btnRight = document.querySelector('.slider__btn--right');
+let curSlide = 0;
+const maxSlide = slides.length;
+
+const goToSlide = function (slide) {
+  slides.forEach((s, i) => {
+    s.style.transform = `translateX(${100 * (i - slide)}%)`;
+  });
+};
+goToSlide(0);
+
+const nextSlide = function () {
+  if (curSlide === maxSlide - 1) curSlide = 0;
+  else curSlide++;
+
+  goToSlide(curSlide);
+};
+const prevSlide = function () {
+  if (curSlide === 0) curSlide = maxSlide - 1;
+  else curSlide--;
+
+  goToSlide(curSlide);
+};
+btnRight.addEventListener('click', nextSlide);
+btnLeft.addEventListener('click', prevSlide);
+//////////////////////////////////////////
 // 事件捕获，事件冒泡
 // const randomInt = (max, min) =>
 //   Math.floor(Math.random() * (max - min) + 1 + min);
