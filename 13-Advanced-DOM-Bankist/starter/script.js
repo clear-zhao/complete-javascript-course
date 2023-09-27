@@ -160,7 +160,7 @@ const sectionObserve = new IntersectionObserver(revealSection, {
 });
 
 allSections.forEach(function (section) {
-  // section.classList.add('section--hidden');
+  section.classList.add('section--hidden');
   sectionObserve.observe(section);
 });
 
