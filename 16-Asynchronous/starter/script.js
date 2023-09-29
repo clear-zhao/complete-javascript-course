@@ -149,3 +149,98 @@ const whereAmI = function (lat, lng) {
 // whereAmI(52.508, 13.381);
 // whereAmI(19.037, 72.873);
 // whereAmI(-33.933, 18.474);
+
+//////////////////////////////////////////////
+// code challenge 2
+
+// promise
+// const log1 = function () {
+//   // console.log('1');
+//   return 1;
+// };
+
+// const log2 = function () {
+//   // console.log(2);
+//   return 2;
+// };
+
+// const myPromise = new Promise(function (resovle, reject) {
+//   const number = Math.random();
+//   if (number > 0.2) resovle(log1);
+//   else reject(log2);
+// });
+
+// console.log('myPromise', myPromise);
+
+// myPromise.then(
+//   val => console.log(val),
+//   val => console.log(val)
+// );
+
+const img = document.querySelector('.images');
+
+const wait = function (seconds) {
+  return new Promise((resolve, reject) => {
+    setTimeout(resolve, seconds * 1000);
+  });
+};
+const createImage = function (imgPath) {
+  return new Promise((resolve, reject) => {
+    const newImg = document.createElement('img');
+    newImg.src = imgPath;
+
+    newImg.addEventListener('load', function () {
+      // img.insertAdjacentElement('beforeend', newImg);
+      img.append(newImg);
+      resolve(newImg);
+    });
+
+    newImg.addEventListener('error', function () {
+      // throw new Error('img load wrong !');
+      reject('load error');
+    });
+  });
+};
+
+let currentImg;
+createImage('./img/img-1.jpg')
+  .then(newImg => {
+    currentImg = newImg;
+    return wait(2);
+  })
+  .then(() => {
+    currentImg.style.display = 'none';
+    return createImage('./img/img-2.jpg');
+  })
+  .then(newImg => {
+    currentImg = newImg;
+    return wait(2);
+  })
+  .then(() => {
+    currentImg.style.display = 'none';
+  })
+  .catch(error =>
+    console.log(
+      `therre is something wrong with loading image ! ${error.message}`
+    )
+  );
+
+// createImage('img/img-1.jpg')
+//   .then(img => {
+//     currentImg = img;
+//     console.log('Image 1 loaded');
+//     return wait(2);
+//   })
+//   .then(() => {
+//     currentImg.style.display = 'none';
+//     return createImage('img/img-2.jpg');
+//   })
+//   .then(img => {
+//     currentImg = img;
+//     console.log('Image 2 loaded');
+//     return wait(2);
+//   })
+//   .then(() => {
+//     currentImg.style.display = 'none';
+//   })
+//   .catch(err => console.error(err));
