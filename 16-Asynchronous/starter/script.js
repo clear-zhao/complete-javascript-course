@@ -168,11 +168,40 @@ const whereAmI = function (lat, lng) {
 //   const number = Math.random();
 //   if (number > 0.2) resovle(log1);
 //   else reject(log2);
+//   console.log('still execute');
 // });
 
 // console.log('myPromise', myPromise);
 
 // myPromise.then(
+//   val => console.log(val),
+//   val => console.log(val)
+// );
+
+// promise 2
+// const log1 = function () {
+//   // console.log('1');
+//   return 1;
+// };
+
+// const log2 = function () {
+//   // console.log(2);
+//   return 2;
+// };
+
+// const myPromise = function () {
+//   return new Promise(function (resovle, reject) {
+//     const number = Math.random();
+//     if (number > 0.2) resovle(log1);
+//     else reject(log2);
+//     // console.log('still execute');
+//   });
+// };
+// // console.log('myPromise', myPromise);
+// const returnValue = myPromise();
+// console.log(returnValue);
+
+// returnValue.then(
 //   val => console.log(val),
 //   val => console.log(val)
 // );
@@ -202,28 +231,28 @@ const createImage = function (imgPath) {
   });
 };
 
-let currentImg;
-createImage('./img/img-1.jpg')
-  .then(newImg => {
-    currentImg = newImg;
-    return wait(2);
-  })
-  .then(() => {
-    currentImg.style.display = 'none';
-    return createImage('./img/img-2.jpg');
-  })
-  .then(newImg => {
-    currentImg = newImg;
-    return wait(2);
-  })
-  .then(() => {
-    currentImg.style.display = 'none';
-  })
-  .catch(error =>
-    console.log(
-      `therre is something wrong with loading image ! ${error.message}`
-    )
-  );
+// let currentImg;
+// createImage('./img/img-1.jpg')
+//   .then(newImg => {
+//     currentImg = newImg;
+//     return wait(2);
+//   })
+//   .then(() => {
+//     currentImg.style.display = 'none';
+//     return createImage('./img/img-2.jpg');
+//   })
+//   .then(newImg => {
+//     currentImg = newImg;
+//     return wait(2);
+//   })
+//   .then(() => {
+//     currentImg.style.display = 'none';
+//   })
+//   .catch(error =>
+//     console.log(
+//       `therre is something wrong with loading image ! ${error.message}`
+//     )
+//   );
 
 // createImage('img/img-1.jpg')
 //   .then(img => {
@@ -244,3 +273,62 @@ createImage('./img/img-1.jpg')
 //     currentImg.style.display = 'none';
 //   })
 //   .catch(err => console.error(err));
+
+/////////////////////////////////////////////////
+// async,await
+//try catch
+
+// const myAsync = async function (country) {
+//   const myFetch = await fetch(`https://restcountries.com/v3.1/name/${country}`);
+//   console.log(myFetch);
+// };
+// myAsync('usa');
+
+// const myAnotherAsync = function (country) {
+//   console.log(fetch(`https://restcountries.com/v3.1/name/${country}`));
+// };
+// myAnotherAsync('china');
+
+//////////////////////////////////////////////
+// code challenge 3
+
+// part 1
+let currentImgAsync;
+const createImageAsync = async function (imgPath1, imgPath2) {
+  try {
+    currentImgAsync = await createImage(imgPath1);
+
+    await wait(2);
+    currentImgAsync.style.display = 'none';
+    await wait(2);
+    currentImgAsync = await createImage(imgPath2);
+    await wait(2);
+    currentImgAsync.style.display = 'none';
+  } catch (err) {
+    console.error(`${err.message} 💥`);
+  }
+};
+// createImageAsync('img/img-1.jpg', 'img/img-2.jpg');
+
+// part 2
+const loadAll = async function (imgArr) {
+  // let a = [];
+  try {
+    // 由于async函数只返回promise，所以获取确切值可以用以下方法，但是没什么必要
+    // const imgs = imgArr.map(async img => {
+    //   const b = await createImage(img);
+    //   a.push(b);
+    //   // console.log(a);
+    // }); // return three promises
+    // console.log(a);
+
+    const imgs = imgArr.map(async img => await createImage(img));
+    // async函数返回promise
+    const imgsEl = await Promise.all(imgs);
+    // console.log(imgsEl); // promises 里面的值组成的数组
+    imgsEl.forEach(img => img.classList.add('parallel'));
+  } catch (err) {
+    console.error(`${err.message}  💥`);
+  }
+};
+loadAll(['img/img-1.jpg', 'img/img-2.jpg', 'img/img-3.jpg']);

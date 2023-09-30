@@ -403,7 +403,7 @@ TEST DATA: Images in the img folder. Test the error handler by passing a wrong i
 
 GOOD LUCK 😀
 */
-
+/*
 const wait = function (seconds) {
   return new Promise(function (resolve) {
     setTimeout(resolve, seconds * 1000);
@@ -454,7 +454,7 @@ createImage('img/img-1.jpg')
 // Consuming Promises with Async/Await
 // Error Handling With try...catch
 
-/*
+
 const getPosition = function () {
   return new Promise(function (resolve, reject) {
     navigator.geolocation.getCurrentPosition(resolve, reject);
