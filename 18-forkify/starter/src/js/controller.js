@@ -128,10 +128,6 @@ const init = function () {
   searchView.addHandlerSearch(controlSearchResults);
   paginationView.addHandelClick(controlPagination);
   addrecipeView.addHandlerUpload(controlAddRecipe);
-<<<<<<< HEAD
   console.log('欢迎 ！');
-=======
-  console.log('ni hao !');
->>>>>>> 9b110b20534289b8445c67761a6d553bb1de8884
 };
 init();
