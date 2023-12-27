@@ -4,7 +4,7 @@ import recipeView from './views/recipeView.js';
 import searchView from './views/searchView.js';
 import resultView from './views/resultsView.js';
 import paginationView from './views/paginationView.js';
-import addrecipeView from './views/addrecipeView.js';
+import addrecipeView from './views/addRecipeView.js';
 
 import 'core-js/stable';
 // import 'regenerator-runtime/runtime';
@@ -128,6 +128,10 @@ const init = function () {
   searchView.addHandlerSearch(controlSearchResults);
   paginationView.addHandelClick(controlPagination);
   addrecipeView.addHandlerUpload(controlAddRecipe);
+<<<<<<< HEAD
   console.log('欢迎 ！');
+=======
+  console.log('ni hao !');
+>>>>>>> 9b110b20534289b8445c67761a6d553bb1de8884
 };
 init();
