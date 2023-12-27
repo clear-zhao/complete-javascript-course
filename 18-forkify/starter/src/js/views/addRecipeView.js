@@ -1,7 +1,7 @@
 import View from './View.js';
 import icons from 'url:../../img/icons.svg'; // Parcel 2
 
-class AddRecipeView extends View {
+class addRecipeView extends View {
   _parentElement = document.querySelector('.upload');
   _message = 'Recipe was successfully uploaded :)';
 
@@ -42,4 +42,4 @@ class AddRecipeView extends View {
   _generateMarkup() {}
 }
 
-export default new AddRecipeView();
+export default new addRecipeView();
