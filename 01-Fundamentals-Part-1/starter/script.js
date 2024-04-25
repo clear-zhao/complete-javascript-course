@@ -68,3 +68,5 @@ const tip = bill >= 50 && bill <= 300 ? 0.15 * bill : 0.2 * bill;
 console.log(
   `The bill is ${bill},the tip is ${tip},and the total value ${bill + tip}.`
 );
+
+console.log("ZKL");
